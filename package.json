@@ -1,0 +1,2 @@
+{"name":"toutchie-to-you","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"node server.mjs","check":"node --check assets/js/app.js && node --check server.mjs","build":"node build.mjs"}}
+
