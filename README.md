@@ -56,9 +56,9 @@ O build apenas copia os arquivos públicos para `dist/`. Banco, documentos e scr
 
 As postagens públicas ficam em `data/posts.json`, versionadas no próprio repositório. No editor do site, informe um **fine-grained personal access token** do GitHub com acesso somente ao repositório `PSjoon/ToutchieToYou` e permissão **Contents: Read and write**. Ao salvar, o site cria um commit que atualiza esse JSON; o GitHub Actions publica a alteração automaticamente.
 
-Use **Lembrar token** no editor para salvá-lo no `localStorage` deste navegador e reutilizá-lo ao publicar ou excluir. Use **Esquecer token** para removê-lo. Ele não é incluído nos posts nem no repositório. O armazenamento não é um cofre: scripts da página ou pessoas com acesso ao navegador podem obter a credencial. Use um token fine-grained restrito ao repositório, com expiração curta.
+O editor usa `githubToken` em `config.js`. Esse arquivo é público no repositório e no site: qualquer pessoa poderá obter e usar um token colocado ali, inclusive para alterar o conteúdo do repositório. O campo começa vazio.
 
-Para criar o token: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens. Restrinja o acesso ao repositório indicado e defina uma expiração curta. Não coloque o token em nenhum arquivo do projeto.
+Para criar o token: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens. Restrinja o acesso ao repositório indicado e defina uma expiração curta.
 
 ## Publicar no GitHub Pages
 
