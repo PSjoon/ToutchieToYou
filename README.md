@@ -36,7 +36,6 @@ O build apenas copia os arquivos públicos para `dist/`. Banco, documentos e scr
 | `assets/images/` | Ilustrações vetoriais e favicon |
 | `data/posts.json` | Fonte pública e versionada das postagens |
 | `docs/ARCHITECTURE.md` | Decisões técnicas, dados, limites e verificações |
-| `.github/workflows/pages.yml` | Publicação no GitHub Pages via Actions |
 | `server.mjs` | Servidor local sem dependências |
 | `build.mjs` | Geração de `dist/` |
 
@@ -66,8 +65,8 @@ Para criar o token: GitHub → Settings → Developer settings → Personal acce
 1. Copie os arquivos deste projeto para seu repositório, incluindo `.github/` e `.nojekyll`.
 2. Use a branch `main` ou ajuste `branches` no workflow.
 3. No GitHub, abra **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-4. Faça commit e push dos arquivos. Se o push já aconteceu, execute o workflow pela aba Actions.
-5. Aguarde o workflow **Publicar blog no GitHub Pages**. A URL aparece em Settings → Pages e no ambiente `github-pages`.
+4. Faça commit e push dos arquivos. O GitHub Pages cria e executa a publicação automaticamente.
+5. Aguarde o workflow **pages build and deployment**. A URL aparece em Settings → Pages e no ambiente `github-pages`.
 
 Os caminhos de assets são relativos e as rotas usam hash: o blog funciona em `https://USUARIO.github.io/ToutchieToYou/` sem regras de redirecionamento. Nenhum token de escrita é necessário no site.
 
