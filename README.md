@@ -2,9 +2,7 @@
 
 ## Excluir publicações
 
-Na página de leitura, use **Excluir publicação** e confirme. A exclusão é lógica: a publicação sai da listagem e deixa de abrir pelo link, mas o registro é preservado. No modo local, isso afeta somente este navegador, incluindo posts de demonstração. Backups podem conter os registros arquivados.
-
-No Supabase, execute também `database/enable-post-deletion.sql`, inclusive em projetos criados com o schema atualizado. O script adiciona a coluna necessária e libera apenas a alteração de `deleted_at`; não permite editar título, conteúdo ou autoria. Como o blog não tem autenticação, **qualquer visitante pode excluir qualquer publicação**. Os registros podem ser restaurados pelo proprietário no painel do banco. A exclusão lógica não torna o conteúdo confidencial: os registros ainda existem e a política de leitura do banco permanece pública. Essa seção substitui a informação anterior de que não existe alteração pública: somente a exclusão lógica foi acrescentada.
+Depois de informar o token no painel editorial, abra uma publicação e use **Excluir publicação**. A remoção atualiza `data/posts.json` com um commit; o histórico do Git conserva versões anteriores do arquivo.
 
 Blog estático em HTML, CSS e JavaScript puros. Visual cyberpunk maximalista inspirado na paleta da referência: rosa dos óculos, amarelo da jaqueta e roxo do cabelo. Ilustração SVG original, editável e incluída no projeto. NEON TRASH é o nome visual do blog; ToutchieToYou é o nome do projeto.
 
@@ -32,11 +30,11 @@ O build apenas copia os arquivos públicos para `dist/`. Banco, documentos e scr
 | Caminho | Responsabilidade |
 | --- | --- |
 | `index.html` | Estrutura semântica, navegação, carregamento dos assets |
-| `config.js` | Configuração pública da conexão opcional com o banco |
+| `config.js` | Repositório e caminho do JSON publicado |
 | `assets/css/style.css` | Layout, cores, responsividade, efeitos e acessibilidade |
 | `assets/js/app.js` | Rotas, posts, filtros, editor e persistência |
 | `assets/images/` | Ilustrações vetoriais e favicon |
-| `database/schema.sql` | Tabela e políticas para publicação compartilhada |
+| `data/posts.json` | Fonte pública e versionada das postagens |
 | `docs/ARCHITECTURE.md` | Decisões técnicas, dados, limites e verificações |
 | `.github/workflows/pages.yml` | Publicação no GitHub Pages via Actions |
 | `server.mjs` | Servidor local sem dependências |
@@ -46,7 +44,7 @@ O build apenas copia os arquivos públicos para `dist/`. Banco, documentos e scr
 
 - `#/`: início, posts, busca e filtro por categoria.
 - `#/post/ID`: leitura com link individual compartilhável.
-- `#/editor`: formulário público, sem login, com prévia e rascunho automático.
+- `#/editor`: painel de administração com prévia, rascunho local e commit no GitHub.
 - `#/sobre`: manifesto e explicação do projeto.
 - Cursor com estrelas, rastro, scanlines, glitch discreto e faixa animada.
 - Botão FX para desativar efeitos; preferência de movimento reduzido respeitada.
@@ -55,32 +53,13 @@ O build apenas copia os arquivos públicos para `dist/`. Banco, documentos e scr
 
 ## Onde as postagens ficam salvas
 
-### Modo local (padrão)
+### GitHub Pages + JSON (configuração atual)
 
-Funciona imediatamente e inclui três posts de demonstração. Publicações e rascunhos ficam em `localStorage`, **apenas no navegador e domínio atuais**. Eles não são enviados ao GitHub nem ficam visíveis para outras pessoas. Limpar os dados do navegador remove esse conteúdo. Use **Exportar postagens** para backup JSON. **Importar postagens** mescla pelo ID e substitui a cópia local de IDs repetidos. Posts de demonstração não entram na exportação.
+As postagens públicas ficam em `data/posts.json`, versionadas no próprio repositório. No editor do site, informe um **fine-grained personal access token** do GitHub com acesso somente ao repositório `PSjoon/ToutchieToYou` e permissão **Contents: Read and write**. Ao salvar, o site cria um commit que atualiza esse JSON; o GitHub Actions publica a alteração automaticamente.
 
-### Modo compartilhado, sem usuários
+O token é usado apenas na memória da aba e não é gravado em `localStorage`, no JSON ou no repositório. Não use token clássico amplo, senha, chave SSH nem `service_role`. Como o token concede escrita no repositório, o editor deve ser usado somente por você.
 
-O GitHub Pages serve arquivos estáticos. Para que qualquer visitante publique pelo editor e todos vejam o post, conecte um projeto Supabase:
-
-1. Crie seu projeto em https://supabase.com.
-2. Abra o SQL Editor e execute `database/schema.sql` em um projeto novo.
-3. Copie a URL do projeto e a **publishable key** (ou a chave legada `anon`).
-4. Preencha `config.js`:
-
-```js
-window.BLOG_CONFIG = {
-  supabaseUrl: 'https://SEU-PROJETO.supabase.co',
-  supabasePublishableKey: 'SUA_CHAVE_PUBLICAVEL'
-};
-```
-
-5. Envie a alteração para o repositório e aguarde a publicação.
-6. Crie uma postagem pelo editor e abra o blog em outro navegador para confirmar o compartilhamento.
-
-Use exclusivamente uma chave publicável. **Nunca coloque `service_role`, chave secreta, senha do banco ou token do GitHub no frontend.** A chave publicável é exposta por definição; as políticas do banco permitem apenas ler e inserir posts. Não há contas ou níveis de usuário. Alteração e exclusão são feitas pelo dono no painel do banco.
-
-Como solicitado, a publicação é aberta: qualquer visitante pode enviar conteúdo e se identificar com qualquer nome. Não há moderação prévia, controle de autoria, CAPTCHA ou limite por IP. Os limites de tamanho existem no cliente e no banco. Antes de divulgar amplamente, avalie adicionar moderação e limitação de envios por um backend. A conexão não foi provisionada neste pacote: é necessário fazer a configuração acima. No modo compartilhado, a página lista os 500 posts mais recentes; rascunhos continuam locais. Os exemplos locais deixam de aparecer. Backups locais não são enviados automaticamente ao banco.
+Para criar o token: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens. Restrinja o acesso ao repositório indicado e defina uma expiração curta. Ao final da publicação, recarregue a página ou feche a aba para descartar o token da memória.
 
 ## Publicar no GitHub Pages
 
@@ -105,10 +84,10 @@ Alternativa sem Actions: publique a branch `main`, pasta `/ (root)`, em Settings
 ## Referências
 
 - [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
-- [Políticas de segurança do Supabase](https://supabase.com/docs/guides/database/postgres/row-level-security)
+- [API Contents do GitHub](https://docs.github.com/rest/repos/contents)
 
 Consulte `docs/ARCHITECTURE.md` para detalhes e verificações.
 
 ## Validação desta entrega
 
-Verificação de sintaxe JavaScript e build executados com Node. Testes de lógica passaram para início, filtro, leitura, post inexistente, escape de HTML e rejeição de URLs inseguras. A inspeção visual no navegador ficou bloqueada pelas permissões de rede local do ambiente. A publicação compartilhada ainda depende de configurar e testar um projeto Supabase real. Nenhuma alteração foi feita na pasta externa informada nem no GitHub.
+O workflow do GitHub Pages executa a verificação de sintaxe e o build antes de cada publicação. O arquivo `data/posts.json` também é validado pelo editor antes de ser publicado.

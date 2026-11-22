@@ -1,0 +1,29 @@
+[
+  {
+    "id": "welcome",
+    "title": "O futuro é brega. E a gente também.",
+    "category": "Cultura",
+    "author": "Toutchie",
+    "created_at": "2026-11-21T12:00:00Z",
+    "excerpt": "Um manifesto por uma internet menos comportada. Mais cor, mais personalidade e muito mais ruído.",
+    "body": "# Bem-vindo à frequência\n\nJá teve a sensação de que todos os sites ficaram iguais? Aqui a gente resolveu girar o botão para o outro lado.\n\n## Bom gosto é opcional. Ter algo a dizer, não.\n\nEste é um espaço para cultura, tecnologia, jogos e pensamentos que não cabem numa caixinha.\n\n> Se a internet é uma cidade, este blog é o letreiro piscando num beco.\n\nPuxe uma cadeira. A transmissão começou."
+  },
+  {
+    "id": "bugs",
+    "title": "Até o neon tem bug.",
+    "category": "Tecnologia",
+    "author": "Toutchie",
+    "created_at": "2026-11-20T12:00:00Z",
+    "excerpt": "Entre código, café e um teste que só falha na sexta-feira: pequenas crônicas de quem constrói a internet.",
+    "body": "# Até o neon tem bug\n\nUma interface bonita começa uma conversa. Uma interface que funciona mantém essa conversa viva.\n\n## Teste o caminho improvável\n\nExperimente uma busca sem resultado, uma conexão que cai e um texto maior do que o esperado. É aí que a experiência revela sua qualidade.\n\n> O futuro também precisa de QA."
+  },
+  {
+    "id": "games",
+    "title": "Mais uma noite em Night City.",
+    "category": "Games",
+    "author": "Toutchie",
+    "created_at": "2026-11-19T12:00:00Z",
+    "excerpt": "Cidades imaginárias, escolhas difíceis e a vontade de explorar só mais uma rua antes de desligar.",
+    "body": "# Mais uma noite em Night City\n\nAlguns mundos ficam na nossa cabeça mesmo depois que a tela apaga.\n\n## A cidade como personagem\n\nEntre propagandas gigantes e pequenas histórias, a atmosfera faz o trabalho que um mapa sozinho nunca faria.\n\nEste é um post de demonstração. O próximo pode ser seu."
+  }
+]
