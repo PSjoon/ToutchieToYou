@@ -80,12 +80,12 @@ img { max-width: 100%; }
   .cards { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .card { display: grid; grid-template-columns: clamp(84px, 24vw, 140px) minmax(0, 1fr); }
   .card-art { height: 100%; min-height: 175px; grid-column: 1; grid-row: 1; }
-  .card-art b { font-size: clamp(24px, 6vw, 42px); letter-spacing: -1px; writing-mode: vertical-rl; }
+  .card-art b { max-width: 100%; padding: 6px; font-size: clamp(15px, 4vw, 24px); line-height: 1.1; letter-spacing: 0; writing-mode: horizontal-tb; overflow-wrap: anywhere; text-align: center; transform: none; }
   .card-art img { position: absolute; inset: 0; }
   .card-body { grid-column: 2; padding: 16px 14px 12px; }
   .meta { font-size: 11px; letter-spacing: .3px; flex-wrap: wrap; justify-content: flex-start; gap: 6px 12px; line-height: 1.6; }
   .card h3 { font-size: clamp(24px, 6vw, 32px); line-height: 1.1; margin: 10px 0; }
-  .card p { margin: 0; font-size: 14px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card p { margin: 0; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
   .card-bottom { grid-column: 1 / -1; margin-inline: 14px; padding: 12px 0; font-size: 11px; flex-wrap: wrap; gap: 8px; }
   .card:hover { transform: none; }
   .banner { padding: 23px; gap: 18px; align-items: stretch; }
